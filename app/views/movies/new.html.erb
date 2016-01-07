@@ -1,0 +1,8 @@
+<h1> Searcing movies according to filters</h1>
+<%= form_for :searc do |f|%>
+<div>
+<%= f.label :title %>&nbsp<%= f.text_field :title%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+<%= f.submit "Search movie"%>
+</div>
+<%end%>
