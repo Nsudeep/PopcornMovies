@@ -9,7 +9,7 @@ class MoviesController < ApplicationController
     def create
     	@movie=Movie.new(movie_params)
     	#render inline: @movie.title
-    	url="http://api.themoviedb.org/3/search/movie?query="+@movie.title+"&api_key=060a9ae33fe170591b00683218658ee6&primary_release_year="+@movie.year+"&sort_by=release_date.desc"
+    	url="http://api.themoviedb.org/3/search/movie?query="+@movie.title+"&api_key=060a9ae33fe170591b00683218658ee6&year="+@movie.year+"&sort_by=release_date.desc"
     	uri = URI.parse(url)
 		http = Net::HTTP.new(uri.host, uri.port)
 		request = Net::HTTP::Get.new(uri.request_uri)
