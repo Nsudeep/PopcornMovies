@@ -6,7 +6,15 @@
 <%= f.submit "Search movie"%>
 </div>
 <br>
-<%= link_to "Connect With Facebook", "/auth/facebook" %>
+<p><%= session[:userDetails] %></p>
+<% if !(@userDetails) %>
+	
+	<%= link_to "Connect With Facebook", "/auth/facebook" %>
+
+<% else %>
+	<p> <%= @userDetails %> </p>
+<% end %>
+
 <%end%>
 
 <% if @movieDetails != nil%>
