@@ -8,3 +8,18 @@
 <br>
 <%= link_to "Connect With Facebook", "/auth/facebook" %>
 <%end%>
+
+<% if @movieDetails != nil%>
+<table>
+	<th>Movie title</th>
+	<th>year</th>
+	<% @movieDetails["results"].each do |i| %>
+	
+			<tr>
+				<td><%= i["title"] %></td>
+				<td><%= i["release_date"] %></td>
+			</tr>
+	<%end%>
+
+</table>
+<%end%>

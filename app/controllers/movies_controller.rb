@@ -5,6 +5,11 @@ require 'json'
 class MoviesController < ApplicationController
     def new
     end
+
+    def show
+
+    end
+
     
     def create
     	@movie=Movie.new(movie_params)
@@ -17,12 +22,15 @@ class MoviesController < ApplicationController
 
 		parsed = JSON.parse(response.body)
 		str=""
- 		parsed["results"].each do |i|
-			str= str + "MOVIE NAME :- " + i["title"] + "   RELEASE YEAR :- " + i["release_date"]+"\n"
+        @movieDetails=parsed
+        #redirect_to :action =>'new'
+        render "new", :locals => {:movie =>Movie.first, :movieDetails => @movieDetails}
+ 		#parsed["results"].each do |i|
+		#	str= str + "MOVIE NAME :- " + i["title"] + "   RELEASE YEAR :- " + i["release_date"]+"\n"
 
 			
-		end
-		render inline: str
+		#end
+	    #render inline: str
 
     #render plain: params[:movie].inspect
     end
