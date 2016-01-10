@@ -1,32 +1,66 @@
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+table{
+	position: absolute;
+	margin-left: 50px;
+	width: 80%;
+	text-align: center;
+}
+
+th {
+    height: 50px;
+}
+</style>
+
+<div style="position:absolute; margin-left:30cm">
+	<% if !(session[:userDetails]) %>
+	
+	<%= link_to "Signin With Facebook", "/auth/facebook" %>
+
+<% else %>
+	<p> <%= session[:userDetails] %> </p>
+	<%= link_to "Logout", "/logout" %>
+<% end %>
+</div>
+<div>
 <h1> Searcing movies according to filters</h1>
+</div>
 <%= form_for :movie, url: movies_path do |f|%>
 <div>
 <%= f.label :title %>&nbsp<%= f.text_field :title%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%= f.label :year %>&nbsp<%= f.text_field :year%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 
 <%= f.submit "Search movie"%>
 </div>
-<br>
-<p><%= session[:userDetails] %></p>
-<% if !(@userDetails) %>
-	
-	<%= link_to "Connect With Facebook", "/auth/facebook" %>
-
-<% else %>
-	<p> <%= @userDetails %> </p>
-<% end %>
 
 <%end%>
+<br><br>
 
 <% if @movieDetails != nil%>
+<!--<%= @movieDetails.inspect %>-->
+<div style="position: absolute; margin-left: 50px"><b>Results of the search</b></div>
+<br>
 <table>
+	<th>S.No</th>
 	<th>Movie title</th>
-	<th>year</th>
+	<th>Year</th>
+	<% if (session[:userDetails]) %>
+		<th>View Page</th>
+	<%end%>
+	<% @sno=1 %>
 	<% @movieDetails["results"].each do |i| %>
 	
 			<tr>
+				<td><%= @sno %></td> 
 				<td><%= i["title"] %></td>
 				<td><%= i["release_date"] %></td>
+				<% if (session[:userDetails])%>
+					<td><%= link_to "View", {:controller => "views", :view => {"title" => i["title"] , "mid" => i["id"], "date" => i["release_date"], "img" => i["poster_path"], "overview" => i["overview"]}}, :method => :post %></td>
+				<%end%>
+
 			</tr>
+			<% @sno += 1 %>
 	<%end%>
 
 </table>

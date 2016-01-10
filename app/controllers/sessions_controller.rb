@@ -21,7 +21,8 @@ class SessionsController < ApplicationController
 
   def destroy
    	session[:user_id] = nil
- 	  render :text => "You've logged out!"
+    session[:userDetails]=nil
+    render template: "movies/new"
   end
 
   def failure

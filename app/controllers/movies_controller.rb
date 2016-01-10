@@ -6,11 +6,6 @@ class MoviesController < ApplicationController
     def new
     end
 
-    def show
-
-    end
-
-    
     def create
     	@movie=Movie.new(movie_params)
     	#render inline: @movie.title

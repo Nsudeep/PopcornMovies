@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'views/rate'
+
+  get 'views/review'
+
+  get 'views/show'
+
+  get 'views/average'
+
   get 'sessions/new'
 
   get 'sessions/create'
@@ -22,6 +30,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   resources :movies
+  resources :views
   root 'welcome#index'
 
   # Example of regular route:
