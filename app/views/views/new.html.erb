@@ -10,7 +10,7 @@
 <br>
 <p><b>Average rating : </b><%=@average_rating%></p><br>
 <p><b>Total votes: </b><%=@total_rating%></p><br>
-<div style="text-align:center">
+<div style="text-align:right">
 <%= form_for :rate, url: views_rate_path do |f|%>
 Rate the movie&nbsp
 <%= f.hidden_field :view, :value => {"id" => @view.id, "name" => @view.name, "year" => @view.year.to_s, "overview" => @view.overview, "photo" => @view.photo, "movId" => @view.movId} %>
@@ -25,6 +25,10 @@ Review the movie&nbsp
 &nbsp&nbsp&nbsp&nbsp&nbsp
 
 <%end%>
+</div>
+<div style="text-align:right">
+List of reviews
+<%= @reviews %>
 </div>
 <br>
 <br>
