@@ -8,8 +8,9 @@ class SessionsController < ApplicationController
   	@authorization = Authorization.find_by_provider_and_uid(auth_hash["provider"], auth_hash["uid"])
   	if @authorization
     	#render :text => "Welcome back #{@authorization.user.name}! You have already signed up."
-      render template: "movies/new", :locals => {:user => User.first, :userDetails => @authorization.user.name }
+      render template: "movies/new", :locals => {:user => User.first, :userDetails => @authorization.user.name, :uId => @authorization.uid}
       session[:userDetails] = @authorization.user.name 
+      session[:uId] = @authorization.uid
   	else
     	user = User.new :name => auth_hash["info"]["name"], :email => auth_hash["info"]["email"]
     	user.authorizations.build :provider => auth_hash["provider"], :uid => auth_hash["uid"]
@@ -22,6 +23,7 @@ class SessionsController < ApplicationController
   def destroy
    	session[:user_id] = nil
     session[:userDetails]=nil
+    session[:uId] = nil
     render template: "movies/new"
   end
 

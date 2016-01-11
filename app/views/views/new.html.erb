@@ -11,8 +11,9 @@
 <div style="text-align:center">
 <%= form_for :rate, url: views_rate_path do |f|%>
 Rate the movie&nbsp
-<%= f.hidden_field :view, :value => {"name" => @view.name, "year" => @view.year.to_s, "overview" => @view.overview, "photo" => @view.photo, "movId" => @view.movId} %>
+<%= f.hidden_field :view, :value => {"id" => @view.id, "name" => @view.name, "year" => @view.year.to_s, "overview" => @view.overview, "photo" => @view.photo, "movId" => @view.movId} %>
 <%= f.hidden_field :mid, :value => @view.movId %>
+<%= f.hidden_field :id, :value => @view.id %>
 <%= f.text_field :rating%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <br><br>
 Review the movie&nbsp
