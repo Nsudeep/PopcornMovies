@@ -18,14 +18,22 @@ class ViewsController < ApplicationController
  	  @view.photo = params[:view][:img]
  	  @view.overview = params[:view][:overview]
     @total_rating = total
+    #@average = @average["average_rating"]
     @average_rating = average
+
+    #@average = MovieRate.select("movId,avg(rate) as average_rate,sum(rate) as total_rate").group("movId").order('average_rate DESC')
+    @average_rating=JSON.parse(@average_rating)
+    @average_rating=@average_rating[0]["average_rating"]
+    @total_rating=JSON.parse(@total_rating)
+    @total_rating = @total_rating[0]["total_rating"]
+   # @average=@average[1]["average_rating"]
     if(View.exists?(movId: @view.movId))
       
     else
-	     @view.save
+	     #@view.save
     end
 
-    render "new", :locals => {:view =>@view}
+    render "new", :locals => {:view =>@view, :average => @average_rating,:total => @total_rating}
     
   end
   def rate
@@ -56,9 +64,12 @@ class ViewsController < ApplicationController
   end
 
   def average
+        MovieRate.select("avg(rate) as average_rating").group("movId").to_json
+
   end
 
   def total
+    MovieRate.select("count(rate) as total_rating").group("movId").to_json
   end
 
   def viewreview

@@ -7,7 +7,9 @@
 
 </div>
 <p><b>Overview : </b><%=@view.overview%></p>
-<br><br>
+<br>
+<p><b>Average rating : </b><%=@average_rating%></p><br>
+<p><b>Total votes: </b><%=@total_rating%></p><br>
 <div style="text-align:center">
 <%= form_for :rate, url: views_rate_path do |f|%>
 Rate the movie&nbsp

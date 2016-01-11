@@ -6,6 +6,11 @@ class MoviesController < ApplicationController
     def new
     end
 
+    def index
+        @view= View.joins(:movie_rates).pluck(:movId, :name, :overview, :year, :rate, :review).uniq
+    end
+
+
     def create
     	@movie=Movie.new(movie_params)
     	#render inline: @movie.title
