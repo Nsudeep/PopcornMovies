@@ -14,13 +14,13 @@ th {
 }
 </style>
 
-<div style="position:absolute; margin-left:30cm">
+<div style="position:absolute; margin-left:29cm">
 	<% if !(session[:userDetails]) %>
 	
 	<%= link_to "Signin With Facebook", "/auth/facebook" %>
 
 <% else %>
-	<p> <%= session[:userDetails] %> </p>
+	<p> Welcome <%= session[:userDetails] %>!</p>
 	<%= link_to "Logout", "/logout" %>
 <% end %>
 </div>
@@ -29,39 +29,41 @@ th {
 </div>
 <%= form_for :movie, url: movies_path do |f|%>
 <div>
-<%= f.label :title %>&nbsp<%= f.text_field :title%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%= f.label :year %>&nbsp<%= f.text_field :year%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<%= f.label :title %>&nbsp<%= f.text_field :title%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%= f.label :year %>&nbsp<%= f.text_field :year%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%= f.label :genre %>&nbsp<%= f.text_field :genre%>
 
 <%= f.submit "Search movie"%>
 </div>
 
 <%end%>
-<br><br>
+<br><br
 
-<% if @movieDetails != nil%>
+
+
+<%if @movieDetails!=nil %>
 <!--<%= @movieDetails.inspect %>-->
-<div style="position: absolute; margin-left: 50px"><b>Results of the search</b></div>
-<br>
-<table>
-	<th>S.No</th>
-	<th>Movie title</th>
-	<th>Year</th>
-	<% if (session[:userDetails]) %>
-		<th>View Page</th>
-	<%end%>
-	<% @sno=1 %>
-	<% @movieDetails["results"].each do |i| %>
-	
-			<tr>
-				<td><%= @sno %></td> 
-				<td><%= i["title"] %></td>
-				<td><%= i["release_date"] %></td>
-				<% if (session[:userDetails])%>
-					<td><%= link_to "View", {:controller => "views", :view => {"title" => i["title"] , "mid" => i["id"], "date" => i["release_date"], "img" => i["poster_path"], "overview" => i["overview"]}}, :method => :post %></td>
-				<%end%>
+	<div style="position: absolute; margin-left: 50px"><b>Results of the search</b></div>
+	<br>
+	<table class ="pure-table">
+		<th>S.No</th>
+		<th>Movie title</th>
+		<th>Year</th>
+		<% if (session[:userDetails]) %>
+			<th>View Page</th>
+		<%end%>
+		<% @sno=1 %>
+		<% @movieDetails["results"].each do |i| %>
+		
+				<tr>
+					<td><%= @sno %></td> 
+					<td><%= i["title"] %></td>
+					<td><%= i["release_date"] %></td>
+					<% if (session[:userDetails])%>
+						<td><%= link_to "View", {:controller => "views", :view => {"title" => i["title"] , "mid" => i["id"], "date" => i["release_date"], "img" => i["poster_path"], "overview" => i["overview"]}}, :method => :post %></td>
+					<%end%>
 
-			</tr>
-			<% @sno += 1 %>
-	<%end%>
+				</tr>
+				<% @sno += 1 %>
+		<%end%>
 
-</table>
-<%end%>
+	</table>
+	<%end%>

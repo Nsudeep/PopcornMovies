@@ -1,1 +1,27 @@
-<h1>view</h1>
+<div style="position:absolute; margin-left:30cm">
+	<%= link_to "Home page", new_movie_path %></div>
+<div>
+<div style="text-align:center"><%= image_tag("http://image.tmdb.org/t/p/w185/"+@view.photo)%></div>
+<h1 style="text-align:center"><%=@view.name%></h1>
+<h3 style="text-align:center"><%=@view.year%></h3>
+
+</div>
+<p><b>Overview : </b><%=@view.overview%></p>
+<br><br>
+<div style="text-align:center">
+<%= form_for :rate, url: views_rate_path do |f|%>
+Rate the movie&nbsp
+<%= f.hidden_field :view, :value => {"name" => @view.name, "year" => @view.year.to_s, "overview" => @view.overview, "photo" => @view.photo, "movId" => @view.movId} %>
+<%= f.hidden_field :mid, :value => @view.movId %>
+<%= f.text_field :rating%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<br><br>
+Review the movie&nbsp
+<%= f.text_field :review%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<br><br><br>
+<%= f.submit "Submit"%>
+
+&nbsp&nbsp&nbsp&nbsp&nbsp
+
+<%end%>
+</div>
+<br>
+<br>
