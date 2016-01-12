@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   	@authorization = Authorization.find_by_provider_and_uid(auth_hash["provider"], auth_hash["uid"])
   	if @authorization
     	#render :text => "Welcome back #{@authorization.user.name}! You have already signed up."
-      render template: "movies/new", :locals => {:user => User.first, :userDetails => @authorization.user.name, :uId => @authorization.uid}
+      render template: session[:redirect], :locals => {:user => User.first, :userDetails => @authorization.user.name, :uId => @authorization.uid}
       session[:userDetails] = @authorization.user.name 
       session[:uId] = @authorization.uid
   	else
@@ -24,7 +24,8 @@ class SessionsController < ApplicationController
    	session[:user_id] = nil
     session[:userDetails]=nil
     session[:uId] = nil
-    render template: "welcome/index"
+    #render template: "welcome/index"
+    render template: session[:redirect]
   end
 
   def failure

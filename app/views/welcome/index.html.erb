@@ -15,15 +15,17 @@ body{
 	<% if !(session[:userDetails]) %>
 	
 	<%= link_to "Signin With Facebook", "/auth/facebook", {style: "color: white"} %>
+  <%session[:redirect]="welcome/index"%>
 
 <% else %>
 	<p> Welcome <%= session[:userDetails] %>!</p>
 	<%= link_to "Logout", "/logout", {style: "color: white"} %>
+  <%session[:redirect]="welcome/index"%>
 <% end %>
 </div>
 <div style="position:absolute; margin-top: 150px; margin-left:100px; align:center; color:white">
 <h1>Welcome to Popcorn Movies</h1>
 <p><%= link_to "Search for Movies", new_movie_path, {style: "color: white"}%></p><br>
 <p><%= link_to "List of movies rated", movies_path, {style: "color: white"} %></p><br>
-<p><%= link_to "Movies based on a month and a year", views_review_path, {style: "color: white"} %></p>
+<p><%= link_to "Top rated movies", views_review_path, {style: "color: white"} %></p>
 </div>

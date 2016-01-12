@@ -1,5 +1,17 @@
 <div style="position:absolute; margin-left:30cm">
-	<%= link_to "Search page", new_movie_path %></div>
+	<% if !(session[:userDetails]) %>
+	
+	<%= link_to "Signin With Facebook", "/auth/facebook" %>
+	<%session[:redirect]="movies/new"%>
+
+<% else %>
+	<p> Welcome <%= session[:userDetails] %>!</p>
+	<%= link_to "Logout", "/logout" %>
+	<%session[:redirect]="moviess/new"%>
+<% end %>
+<br><br><%= link_to "Search page", new_movie_path %>
+<br><br><%= link_to "Home Page", root_path%><br>
+</div>
 <div style="width:1000px; margin: auto; border: 2px solid black; position: absolute; margin-top:10px; margin-left:100px">
 	<div style="text-align:center"><%= image_tag("http://image.tmdb.org/t/p/w185/"+@view.photo)%></div>
 	<h1 style="text-align:center"><%=@view.name%></h1>
@@ -25,17 +37,21 @@
 		
 	</div>
 	<br>
-	<div style="text-align:center">
-		<%= form_for :rate, url: views_rate_path do |f|%>
-			Rate the movie&nbsp
-			<%= f.hidden_field :view, :value => {"name" => @view.name, "year" => @view.year.to_s, "overview" => @view.overview, "photo" => @view.photo, "movId" => @view.movId} %>
-			<%= f.hidden_field :mid, :value => @view.movId %>
-			<%= f.text_field :rating%><br><br>
-			Review the movie&nbsp
-			<%= f.text_field :review%><br><br>
-			<%= f.submit "Submit"%>
-		<%end%>
-	</div>
+	<% if (session[:userDetails]) %>
+		<div style="text-align:center">
+			<%= form_for :rate, url: views_rate_path do |f|%>
+				Rate the movie&nbsp
+				<%= f.hidden_field :view, :value => {"name" => @view.name, "year" => @view.year.to_s, "overview" => @view.overview, "photo" => @view.photo, "movId" => @view.movId} %>
+				<%= f.hidden_field :mid, :value => @view.movId %>
+				<%= f.text_field :rating%><br><br>
+				
+				Review the movie &nbsp
+				<%= f.text_field :review%><br><br>
+				<%= f.submit "Submit"%>
+			<%end%>
+		</div>
+	<%else%><div style="color:red; text-align: center;"><b>Login to rate the movie</b></div>
+	<%end%>
 	
 	<br>
 	<br>

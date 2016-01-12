@@ -1,10 +1,25 @@
-<h1>Views#review</h1>
-<p>Find me in app/views/views/review.html.erb</p>
-<%= form_for :movie, url: views_review_path do |f|%>
-<div>
-<%= f.label :month %>&nbsp<%= f.text_field :month%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%= f.label :year %>&nbsp<%= f.text_field :year%>
+	
 
-<%= f.submit "Search"%>
+<div style="position:absolute; margin-left:30cm">
+	<%= link_to "Back", root_path %></div>
+<div>
+<h1 style="position:absolute; margin-left:300px">Top rated movies</h1><br>
+<div style="width:20cm; margin: auto; border: 5px solid black; position: absolute; margin-top:50px; margin-left:250px">
+
+		<% @sno=1 %>
+		<% @movjoin.each do |i| %>
+			<div>		
+				
+				<p style="float: left;"><%= image_tag("http://image.tmdb.org/t/p/w185/"+i["photo"]) %></p>
+				<p><%= @sno %></p>
+				
+				<p><b>Movie title: </b><%= i["name"] %></p>
+				<p><b>Year: </b><%= i["year"] %></p>
+				<p><b>Average rating: </b><%= i["avgrating"]%></p>
+			</div>
+			<br><br><br><br><br><br><br><br><br><br>
+		
+			<% @sno += 1 %>
+		<%end%>
 </div>
 
-<%end%>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111093611) do
+ActiveRecord::Schema.define(version: 20160112071534) do
 
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20160111093611) do
     t.string   "overview"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float    "avgrating"
   end
 
 end

@@ -69,6 +69,7 @@ class ViewsController < ApplicationController
       @rate.save
       #render "show", :locals => {:rate => @rate}
     end
+    
     @v = eval(params[:rate][:view])
     @view = View.new
     @view.photo = @v["photo"]
@@ -76,8 +77,18 @@ class ViewsController < ApplicationController
     @view.movId=@v["movId"]
     @view.overview=@v["overview"]
     @view.year=@v["year"]
+
     
-    render "show", :locals => {:view => @view}
+    @view1=View.find(@rate.view_id)
+    @avg_rating = MovieRate.where(movId: @rate.movId).average(:rate)
+    @view1[:avgrating]=@avg_rating
+    @view1.save
+
+    if(!@a)
+      render "show", :locals => {:view => @view}
+    end
+    
+    
   end
 
   def checkRate
@@ -87,6 +98,15 @@ class ViewsController < ApplicationController
   end
 
   def review
+    @topmovie= topmovie
+    @topmovie=JSON.parse(@topmovie)
+
+    @botmovie= botmovie
+    @botmovie=JSON.parse(@botmovie)
+   # @movjoin =View.joins(:movie_rates).pluck(:name, :photo)
+    @movjoin =View.select("name, avgrating, photo, year").order('avgrating DESC').limit(5).to_json
+    @movjoin = JSON.parse(@movjoin)
+
   end
 
   def show
@@ -106,6 +126,16 @@ class ViewsController < ApplicationController
 
   def viewId
     View.select("views.id").where("movId = ?", @rate.movId).to_json
+  end
+
+  def topmovie
+    MovieRate.select("movId, avg(rate) as average_rating").group('movId').order('average_rating DESC').limit(5).to_json
+  
+  end
+
+  def botmovie
+    
+  MovieRate.select("movId, avg(rate) as average_rating").group('movId').order('average_rating ASC').limit(5).to_json
   end
 
 end

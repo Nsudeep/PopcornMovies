@@ -21,11 +21,14 @@ tr {
 	<% if !(session[:userDetails]) %>
 	
 	<%= link_to "Signin With Facebook", "/auth/facebook" %>
+	<%session[:redirect]="movies/new"%>
 
 <% else %>
 	<p> Welcome <%= session[:userDetails] %>!</p>
 	<%= link_to "Logout", "/logout" %>
+	<%session[:redirect]="movies/new"%>
 <% end %>
+<br><br><%= link_to "Home Page", root_path%><br>
 </div>
 <div>
 <h1> Searcing movies according to filters</h1>
@@ -50,9 +53,7 @@ tr {
 		<th>S.No</th>
 		<th>Movie title</th>
 		<th>Year</th>
-		<% if (session[:userDetails]) %>
-			<th>View Page</th>
-		<%end%>
+		<th>View Page</th>
 		<% @sno=1 %>
 		<% @movieDetails["results"].each do |i| %>
 		
@@ -60,9 +61,7 @@ tr {
 					<td><%= @sno %></td> 
 					<td><%= i["title"] %></td>
 					<td><%= i["release_date"] %></td>
-					<% if (session[:userDetails])%>
-						<td><%= link_to "View", {:controller => "views", :view => {"title" => i["title"] , "mid" => i["id"], "date" => i["release_date"], "img" => i["poster_path"], "overview" => i["overview"]}}, :method => :post %></td>
-					<%end%>
+					<td><%= link_to "View", {:controller => "views", :view => {"title" => i["title"] , "mid" => i["id"], "date" => i["release_date"], "img" => i["poster_path"], "overview" => i["overview"]}}, :method => :post %></td>
 
 				</tr>
 				<% @sno += 1 %>
