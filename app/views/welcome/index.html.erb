@@ -1,3 +1,29 @@
+<style>
+body{
+  
+  	
+  	background: url("/assets/welcome_page.jpg") no-repeat center center fixed; 
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  	background-opacity: .01;
+ 
+  }
+ </style>
+ <div style="position:absolute; margin-left:29cm; color: white; margin-top: 20px">
+	<% if !(session[:userDetails]) %>
+	
+	<%= link_to "Signin With Facebook", "/auth/facebook", {style: "color: white"} %>
+
+<% else %>
+	<p> Welcome <%= session[:userDetails] %>!</p>
+	<%= link_to "Logout", "/logout", {style: "color: white"} %>
+<% end %>
+</div>
+<div style="position:absolute; margin-top: 150px; margin-left:100px; align:center; color:white">
 <h1>Welcome to Popcorn Movies</h1>
-<%= link_to "Search for Movies", new_movie_path%><br><br>
-<%= link_to "List of movies rated", movies_path %>
+<p><%= link_to "Search for Movies", new_movie_path, {style: "color: white"}%></p><br>
+<p><%= link_to "List of movies rated", movies_path, {style: "color: white"} %></p><br>
+<p><%= link_to "Movies based on a month and a year", views_review_path, {style: "color: white"} %></p>
+</div>

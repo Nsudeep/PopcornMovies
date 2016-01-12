@@ -1,34 +1,42 @@
 <div style="position:absolute; margin-left:30cm">
-	<%= link_to "Home page", new_movie_path %></div>
-<div>
-<div style="text-align:center"><%= image_tag("http://image.tmdb.org/t/p/w185/"+@view.photo)%></div>
-<h1 style="text-align:center"><%=@view.name%></h1>
-<h3 style="text-align:center"><%=@view.year%></h3>
+	<%= link_to "Search page", new_movie_path %></div>
+<div style="width:1000px; margin: auto; border: 2px solid black; position: absolute; margin-top:10px; margin-left:100px">
+	<div style="text-align:center"><%= image_tag("http://image.tmdb.org/t/p/w185/"+@view.photo)%></div>
+	<h1 style="text-align:center"><%=@view.name%></h1>
+	<h3 style="text-align:center"><%=@view.year%></h3>
 
-</div>
-<p><b>Overview : </b><%=@view.overview%></p>
-<br>
-<p><b>Average rating : </b><%=@average_rating%></p><br>
-<p><b>Total votes: </b><%=@total_rating%></p><br>
-<div style="text-align:right">
-<%= form_for :rate, url: views_rate_path do |f|%>
-Rate the movie&nbsp
-<%= f.hidden_field :view, :value => {"id" => @view.id, "name" => @view.name, "year" => @view.year.to_s, "overview" => @view.overview, "photo" => @view.photo, "movId" => @view.movId} %>
-<%= f.hidden_field :mid, :value => @view.movId %>
-<%= f.hidden_field :id, :value => @view.id %>
-<%= f.text_field :rating%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<br><br>
-Review the movie&nbsp
-<%= f.text_field :review%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<br><br><br>
-<%= f.submit "Submit"%>
 
-&nbsp&nbsp&nbsp&nbsp&nbsp
-
-<%end%>
+	<p><b>Overview : </b><%=@view.overview%></p>
+	<%if @average_rating!=""%>
+	<p><b>Average rating : </b><%=@average_rating%></p>
+	<p><b>Total votes: </b><%=@total_rating%></p>
+	<%end%>
+	<div>
+		<%if reviews.empty?!=true%>
+		<p><b>List of reviews : </b></p>
+		<div style="position: relative; margin-left: 100px">
+		<% @reviews.each do |i| %>
+			<%if i["review"]!=""%>
+			<p><%=i["uName"]%> : <%=i["review"]%></p>
+		<%end%>
+		<%end%>	
+		</div>
+		<%end%>
+		
+	</div>
+	<br>
+	<div style="text-align:center">
+		<%= form_for :rate, url: views_rate_path do |f|%>
+			Rate the movie&nbsp
+			<%= f.hidden_field :view, :value => {"name" => @view.name, "year" => @view.year.to_s, "overview" => @view.overview, "photo" => @view.photo, "movId" => @view.movId} %>
+			<%= f.hidden_field :mid, :value => @view.movId %>
+			<%= f.text_field :rating%><br><br>
+			Review the movie&nbsp
+			<%= f.text_field :review%><br><br>
+			<%= f.submit "Submit"%>
+		<%end%>
+	</div>
+	
+	<br>
+	<br>
 </div>
-<div style="text-align:right">
-List of reviews
-<%= @reviews %>
-</div>
-<br>
-<br>

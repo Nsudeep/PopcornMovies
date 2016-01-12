@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
    	session[:user_id] = nil
     session[:userDetails]=nil
     session[:uId] = nil
-    render template: "movies/new"
+    render template: "welcome/index"
   end
 
   def failure

@@ -6,8 +6,14 @@ class MoviesController < ApplicationController
     def new
     end
 
+    def show
+
+    end
+
+
+
     def index
-        @view= View.joins(:movie_rates).pluck(:movId, :name, :overview, :year, :rate, :review).uniq
+        @view= View.joins(:movie_rates).pluck(:movId, :name, :overview, :year, :rate, :review, :photo).uniq
     end
 
 

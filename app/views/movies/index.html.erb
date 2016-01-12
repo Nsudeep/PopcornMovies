@@ -1,1 +1,22 @@
-<h1><%= @view.inspect %></h1>
+<div style="position:absolute; margin-left:30cm">
+	<%= link_to "Back", root_path %></div>
+<div>
+<h1 style="position:absolute; margin-left:300px">Listing movies already rated and reviewed</h1><br>
+<div style="width:20cm; margin: auto; border: 5px solid black; position: absolute; margin-top:50px; margin-left:250px">
+
+		<% @sno=1 %>
+		<% @view.each do |i| %>
+			<div>		
+				
+				<p style="float: left;"><%= image_tag("http://image.tmdb.org/t/p/w185/"+i[6]) %></p>
+				<p><%= @sno %></p>
+				
+				<p><b>Movie title: </b><%= i[1] %></p>
+				<p><b>Year: </b><%= i[3] %></p>
+				<p><b>Overview: </b><%= i[2]%></p>
+			</div>
+			<br><br><br><br><br><br><br><br>
+		
+			<% @sno += 1 %>
+		<%end%>
+</div>
